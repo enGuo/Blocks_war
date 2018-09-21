@@ -1,3 +1,5 @@
+import ResManager from "./ResManager";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -11,7 +13,7 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class NewClass extends cc.Component implements ResCallBack_Complete {
 
     @property(cc.Label)
     label: cc.Label = null;
@@ -19,12 +21,16 @@ export default class NewClass extends cc.Component {
     @property
     text: string = 'hello';
 
-    // LIFE-CYCLE CALLBACKS:
-
     // onLoad () {}
 
     start () {
-        
+        let resman = new ResManager();
+        // resman.GetOneRes('img/matter',function(err:Error, assets:any){
+        //     console.log(assets);
+        // })
+        cc.loader.loadResDir('img', function(err, assets){
+            console.log(assets);
+        });
     }
 
     // update (dt) {}
