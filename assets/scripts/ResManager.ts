@@ -11,32 +11,51 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class ResManager{
+export class ResManager{
     
     /**
-     * 本地获取单个资源
+     * 本地加载单个资源
      * @param url 路径
-     * @param callback 获取资源回调
+     * @param callbackComplete 完成回调
+     * @param callbackProgress 过程回调
      * @param type 资源类型
      */
-    public GetOneRes(url:string, callbackComplete?:ResCallBack_Complete, callbackProgress?:ResCallBack_Progress, type?:any)
+    public GetOneRes(url: string, callbackComplete?: IResCallBack_Complete, callbackProgress?: IResCallBack_Progress, type?: any)
     {
         cc.loader.loadRes(url, type, callbackProgress, callbackComplete);
     }
 
-    public GetMultiRes(url:string, callback:ResCallBack_Progress, type:any)
+    /**
+     * 本地加载多个资源
+     * @param url 路径
+     * @param callbackComplete 完成回调
+     * @param callbackProgress 过程回调
+     * @param type 资源类型
+     */
+    public GetMultiRes(url: string, callbackComplete?: IResCallBack_Complete, callbackProgress?: IResCallBack_Progress, type?: any)
     {
-        cc.loader.loadResDir
+        cc.loader.loadResDir(url, type, callbackProgress, callbackComplete);
     }
     
+    public GetRemoteRes(remoteArg: string | string[] | IRemoteResObject, callback?: Function)
+    {
+        cc.loader.load(remoteArg, callback);
+    }
 }
 
-interface ResCallBack_Complete
+interface IResCallBack_Complete
 {
-    (err:Error, assets:any, ulr?:string) : void;
+    (err: Error, assets: any, ulr?: string[]) : void;
 }
 
-interface ResCallBack_Progress
+interface IResCallBack_Progress
 {
     (completedCount: number, totalCount: number, item: any) : void;
+}
+
+interface IRemoteResObject
+{
+    uuid?: string;
+    url?:  string;
+    type?: string;
 }

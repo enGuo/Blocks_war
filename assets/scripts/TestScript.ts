@@ -1,4 +1,5 @@
-import ResManager from "./ResManager";
+import {ResManager} from "./ResManager";
+// declare let require: (string)=>any;
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -13,24 +14,25 @@ import ResManager from "./ResManager";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component implements ResCallBack_Complete {
-
-    @property(cc.Label)
-    label: cc.Label = null;
-
-    @property
-    text: string = 'hello';
+export default class TestScript extends cc.Component {
 
     // onLoad () {}
 
-    start () {
+    start () {    
         let resman = new ResManager();
         // resman.GetOneRes('img/matter',function(err:Error, assets:any){
         //     console.log(assets);
         // })
-        cc.loader.loadResDir('img', function(err, assets){
-            console.log(assets);
-        });
+
+        // resman.GetMultiRes('img', function(err, assets, url){
+        //     console.log(assets);
+        //     console.log(url);
+        // }, function(x,y,itme){
+        //     console.log(x);
+        //     console.log(y);            
+        //     console.log(itme);            
+        // },cc.SpriteFrame);
+
     }
 
     // update (dt) {}
